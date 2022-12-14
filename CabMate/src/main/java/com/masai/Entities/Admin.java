@@ -1,6 +1,8 @@
 package com.masai.Entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
@@ -9,14 +11,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class User {
+public class Admin {
 	
 	@Id
-	private String phone_number;
-	private String password;
-	private String address;
-	private String name;
-	private Integer Roll;
-	private String email;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer admin_Id;
+
 }
