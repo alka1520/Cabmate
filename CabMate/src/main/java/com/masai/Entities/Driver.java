@@ -16,8 +16,8 @@ public class Driver {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer driver_ID;
-	private String License_no;
+	private Integer driverID;
+	private String LicenseNo;
 	private Double rating;
 	
 }
