@@ -9,9 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
-public class Admin {
+public class Admin extends User{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
