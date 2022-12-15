@@ -7,19 +7,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserSession {
 	
+	
+//	@GeneratedValue(strategy =GenerationType.AUTO)
 	@Id
-	@GeneratedValue(strategy =GenerationType.AUTO)
-	private Integer session_id;
-	private Integer user_id;
-	private LocalDateTime session_time;
+	private Integer userid;
+	private String sessionId;
+
+	private LocalDateTime sessiontime;
 	private Integer role;
 
 }

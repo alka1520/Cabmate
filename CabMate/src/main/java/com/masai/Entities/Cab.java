@@ -15,8 +15,8 @@ public class Cab {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer cab_ID;
+	private Integer cabID;
 	private Double rate;
-	private String car_type;
+	private String cartype;
 	
 }

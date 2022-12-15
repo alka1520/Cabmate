@@ -20,14 +20,14 @@ public class Booking {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer booking_id;
+	private Integer bookingid;
 	
-	private String source_location;
+	private String sourcelocation;
 	
 	private String destination;
 	
-	private LocalDateTime from_date;
-	private LocalDateTime to_date;
+	private LocalDateTime fromdate;
+	private LocalDateTime todate;
 	private Double bill;
 	private Double km;
 	private Boolean status;
