@@ -9,8 +9,6 @@ public interface CustomerService {
 	public Customer registerCustomer(Customer customer) throws CustomerException;
 	
 	
-	//public Admin registerAdmin(Admin admin);
-	
 	public Customer updateCustomer(Customer customer) throws CustomerException;
 	
 	
