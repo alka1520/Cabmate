@@ -5,11 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Driver extends User{
 
 	
@@ -21,39 +25,7 @@ public class Driver extends User{
 	
 	private Double rating;
 	
-
-	
-	public Integer getDriverID() {
-		return driverID;
-	}
-	public void setDriver_ID(Integer driverID) {
-		this.driverID = driverID;
-	}
-	public String getLicenseNo() {
-		return LicenseNo;
-	}
-	public void setLicense_no(String licenseNo) {
-		LicenseNo = licenseNo;
-	}
-	public Double getRating() {
-		return rating;
-	}
-	public void setRating(Double rating) {
-		this.rating = rating;
-	}
-	
-	public Driver(String phone, String password, String address, String name, Integer roll, String email,
-			Integer driverID, String licenseNo, Double rating) {
-		super(phone, password, address, name, roll, email);
-		this.driverID = driverID;
-		LicenseNo = licenseNo;
-		this.rating = rating;
-	}
-	
-	@Override
-	public String toString() {
-		return "Driver [driverID=" + driverID + ", LicenseNo=" + LicenseNo + ", rating=" + rating + "]";
-	}
+	final Integer role=2;
 
 	
 	

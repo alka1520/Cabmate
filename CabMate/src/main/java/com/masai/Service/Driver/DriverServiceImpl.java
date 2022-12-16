@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.Entities.Driver;
+import com.masai.Exception.DriverException;
 import com.masai.Repository.DriverDao;
 
 @Service
@@ -17,6 +18,7 @@ public class DriverServiceImpl implements DriverService {
 		//System.out.println(driver);
 		return driverDao.save(driver);
 	}
+
 	
 	
 

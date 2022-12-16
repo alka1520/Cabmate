@@ -17,7 +17,7 @@ public class DriverController {
 	@Autowired
 	private DriverService driverService;
 	
-	@PostMapping("/registerDriver")
+	@PostMapping("/registerDriverbydriver")
 	public ResponseEntity<Driver> registerDriver(@RequestBody Driver driver){
 		System.out.println(driver);
 		Driver registeredDriver =driverService.registerDriver(driver);

@@ -11,6 +11,6 @@ public class AdminDTO {
 
 	private String phonenumber;
 	private String password;
-	final Integer roll=1;
+	final Integer role=1;
 	
 }

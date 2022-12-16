@@ -8,14 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.GeneratorType;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
 	
 	@Id
@@ -26,8 +26,8 @@ public class Booking {
 	
 	private String destination;
 	
-	private LocalDateTime fromdate;
-	private LocalDateTime todate;
+	private LocalDate fromdate;
+	private LocalDate todate;
 	private Double bill;
 	private Double km;
 	private Boolean status;
