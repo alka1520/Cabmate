@@ -32,4 +32,5 @@ public class Booking {
 	private Double km;
 	private Boolean status;
 
+	
 }

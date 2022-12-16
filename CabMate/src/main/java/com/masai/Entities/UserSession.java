@@ -25,5 +25,6 @@ public class UserSession {
 
 	private LocalDateTime sessiontime;
 	private Integer role;
+	
 
 }

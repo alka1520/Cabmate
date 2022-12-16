@@ -23,6 +23,16 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(DriverException.class)
+	public ResponseEntity<MyErrorDetails> driverExceptionHandler(DriverException de,WebRequest req){
+		MyErrorDetails err= new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(de.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> anyExceptionHandler(Exception ie, WebRequest req) {
 		
@@ -44,6 +54,7 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
+	
 	
 	
 }

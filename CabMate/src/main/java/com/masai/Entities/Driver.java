@@ -1,18 +1,26 @@
 package com.masai.Entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Driver extends User{
 
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer driverID;
@@ -21,40 +29,20 @@ public class Driver extends User{
 	
 	private Double rating;
 	
-
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="cabId")
+	private Cab cab;
 	
-	public Integer getDriverID() {
-		return driverID;
-	}
-	public void setDriver_ID(Integer driverID) {
-		this.driverID = driverID;
-	}
-	public String getLicenseNo() {
-		return LicenseNo;
-	}
-	public void setLicense_no(String licenseNo) {
-		LicenseNo = licenseNo;
-	}
-	public Double getRating() {
-		return rating;
-	}
-	public void setRating(Double rating) {
-		this.rating = rating;
-	}
-	
-	public Driver(String phone, String password, String address, String name, Integer roll, String email,
-			Integer driverID, String licenseNo, Double rating) {
-		super(phone, password, address, name, roll, email);
-		this.driverID = driverID;
+	public Driver(String licenseNo, Double rating) {
+		super();
 		LicenseNo = licenseNo;
 		this.rating = rating;
 	}
-	
-	@Override
-	public String toString() {
-		return "Driver [driverID=" + driverID + ", LicenseNo=" + LicenseNo + ", rating=" + rating + "]";
-	}
 
+
+
+
+	
 	
 	
 	
