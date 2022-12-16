@@ -5,11 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.DTO.AdminDTO;
+import com.masai.DTO.LoginDTO;
 import com.masai.Entities.Admin;
 import com.masai.Exception.LoginException;
+import com.masai.Exception.LogoutException;
 import com.masai.Service.Admin.AdminService;
 import com.masai.Service.Login.LoginService;
 
@@ -28,11 +31,8 @@ public class AdminController {
 	@PostMapping("/login")
 	public ResponseEntity<String> logInCustomer(@RequestBody AdminDTO dto) throws LoginException {
 		
-		
-		String result = logS.adminlogin(dto);
-		
-
-		
+		LoginDTO ldto = new LoginDTO(dto.getPhonenumber(), dto.getPassword(), dto.getRole());
+		String result = logS.login(ldto);
 		return new ResponseEntity<String>(result,HttpStatus.OK );
 		
 		
@@ -41,12 +41,20 @@ public class AdminController {
 	
 	@PostMapping("/registeradmin")
 	public ResponseEntity<Admin> createAdminHandler(@RequestBody Admin admin)	{
-		System.out.println(admin.getAddress()+admin.getName());
+		
 		Admin a=adminS.createAdmin(admin);
 		
 		return new ResponseEntity<Admin>(a, HttpStatus.CREATED);
 		
 	}
+	
+	
+	@PostMapping("/logout")
+	public String logoutCustomer(@RequestParam(required = false) String key) throws LogoutException {
+		return logS.logOut(key);
+		
+	}
+	
 
 	
 }

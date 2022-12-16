@@ -19,20 +19,20 @@ public class User {
 	private String password;
 	private String address;
 	private String name;
-	private Integer Roll;
+//	private Integer Roll;
 	private String email;
 	
 	public User() {
 		super();
 	}
 
-	public User(String phone, String password, String address, String name, Integer roll, String email) {
+	public User(String phone, String password, String address, String name, String email) {
 		super();
 		this.phone = phone;
 		this.password = password;
 		this.address = address;
 		this.name = name;
-		Roll = roll;
+//		Roll = roll;
 		this.email = email;
 	}
 
@@ -68,13 +68,13 @@ public class User {
 		this.name = name;
 	}
 
-	public Integer getRoll() {
-		return Roll;
-	}
-
-	public void setRoll(Integer roll) {
-		Roll = roll;
-	}
+//	public Integer getRoll() {
+//		return Roll;
+//	}
+//
+//	public void setRoll(Integer roll) {
+//		Roll = roll;
+//	}
 
 	public String getEmail() {
 		return email;
@@ -86,8 +86,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [phone=" + phone + ", password=" + password + ", address=" + address + ", name=" + name + ", Roll="
-				+ Roll + ", email=" + email + "]";
+	return "User [phone=" + phone + ", password=" + password + ", address=" + address + ", name=" + name + 
+				" email=" + email + "]";
 	}
 
 	

@@ -23,6 +23,7 @@ public class Admin extends User{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 
+	final Integer role = 1;
 	
 
 }

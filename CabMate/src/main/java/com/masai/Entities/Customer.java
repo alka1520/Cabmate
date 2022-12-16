@@ -15,5 +15,7 @@ public class Customer extends User{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer userID;
+	private Integer customerID;
+	
+	final Integer role = 3;
 }

@@ -21,6 +21,7 @@ public class Driver extends User{
 	
 	private Double rating;
 	
+	final Integer role = 2;
 
 	
 	public Integer getDriverID() {
@@ -41,21 +42,26 @@ public class Driver extends User{
 	public void setRating(Double rating) {
 		this.rating = rating;
 	}
-	
-	public Driver(String phone, String password, String address, String name, Integer roll, String email,
-			Integer driverID, String licenseNo, Double rating) {
-		super(phone, password, address, name, roll, email);
-		this.driverID = driverID;
-		LicenseNo = licenseNo;
-		this.rating = rating;
+	public Integer getRole() {
+		return role;
 	}
 	
-	@Override
-	public String toString() {
-		return "Driver [driverID=" + driverID + ", LicenseNo=" + LicenseNo + ", rating=" + rating + "]";
-	}
-
+//	public Driver(String phone, String password, String address, String name, Integer roll, String email,
+//			Integer driverID, String licenseNo, Double rating) {
+//		super(phone, password, address, name, roll, email);
+//		this.driverID = driverID;
+//		LicenseNo = licenseNo;
+//		this.rating = rating;
+//	}
 	
 	
+	
+//	@Override
+//	public String toString() {
+//		return "Driver [driverID=" + driverID + ", LicenseNo=" + LicenseNo + ", rating=" + rating + "]";
+//	}
+//
+//	
+//	
 	
 }
