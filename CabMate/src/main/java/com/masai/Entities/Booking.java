@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GeneratorType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,11 +40,13 @@ public class Booking {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="cabId") 
+	@JsonIgnore
 	private Cab cab;
 	  
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="userId") 
+/*	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="userId")
+	@JsonIgnore
 	private Customer customer;
-	 
+*/	 
 
 }

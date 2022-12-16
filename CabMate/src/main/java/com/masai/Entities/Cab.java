@@ -26,7 +26,7 @@ public class Cab {
 	private Double rate;
 	private String cartype;
 	private String cabNumber;
-	private Boolean availbilityStatus = true;
+	private Boolean availbilityStatus;
 	
 	//cab book status
 	

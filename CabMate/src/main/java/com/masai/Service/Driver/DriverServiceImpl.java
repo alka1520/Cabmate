@@ -21,6 +21,7 @@ public class DriverServiceImpl implements DriverService {
 		cab.setCabNumber(driver.getCab().getCabNumber());
 		cab.setCartype(driver.getCab().getCartype());
 		cab.setRate(driver.getCab().getRate());
+		cab.setAvailbilityStatus(true);
 		
 		Driver driver1 = new Driver();
 		driver1.setName(driver.getName());
