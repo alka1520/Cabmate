@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,21 +29,13 @@ public class Driver extends User{
 	private Double rating;
 	private Boolean approvalStatus=false;
 	
+
+	
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="cabId")
 	private Cab cab;
-	
-	public Driver(String licenseNo, Double rating) {
-		super();
-		LicenseNo = licenseNo;
-		this.rating = rating;
-	}
 
 
 
-
-	
-	
-	
-	
 }

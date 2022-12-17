@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.masai.Entities.Booking;
 import com.masai.Entities.Cab;
 import com.masai.Entities.Driver;
@@ -28,23 +29,17 @@ public class DriverServiceImpl implements DriverService {
 	private BookingDao bookingDao;
 	
 	@Override
-	public Driver registerDriver(Driver driver)throws DriverException {
+	public Driver registerDriver(Driver driver)throws DriverException{
 		
-        Driver existingDriver = driverDao.findByPhone(driver.getPhone());
-        
-        
-		
-		if(existingDriver!=null) throw new DriverException("Your phone number is already registered.");
-		
-        Cab cab = new Cab();
-        
-		cab.setVehicleNo(driver.getCab().getVehicleNo());
+		Cab cab = new Cab();
+		cab.setCabNumber(driver.getCab().getCabNumber());
+
 		cab.setCartype(driver.getCab().getCartype());
 		cab.setRate(driver.getCab().getRate());
 		cab.setAvailbilityStatus(true);
 		
 		Driver driver1 = new Driver();
-		
+
 		driver1.setName(driver.getName());
 		driver1.setEmail(driver.getEmail());
 		driver1.setAddress(driver.getAddress());
@@ -54,12 +49,13 @@ public class DriverServiceImpl implements DriverService {
 		driver1.setRating(driver.getRating());
 		driver1.setRoll(driver.getRoll());
 	
-		
+
 		driver1.setCab(cab);
 		cab.setDriver(driver1);
 		
 		
 		return driverDao.save(driver1);
+
 	}
 
 	@Override
@@ -78,6 +74,7 @@ public class DriverServiceImpl implements DriverService {
 		driver.setDriverID(usersession.getUserid());
 		
 		return driverDao.save(driver);
+
 	}
 
 	@Override

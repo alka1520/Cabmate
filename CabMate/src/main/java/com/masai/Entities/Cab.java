@@ -27,12 +27,16 @@ public class Cab {
 	private String vehicleNo;
 	private Double rate;
 	private String cartype;
-	private Boolean availbilityStatus=true;
+	private String cabNumber;
+	private Boolean availbilityStatus;
 	
-
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="driverID")
 	@JsonIgnore
 	private Driver driver;
+	
+	
+	
 }
 

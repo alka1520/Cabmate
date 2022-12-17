@@ -25,7 +25,7 @@ public class DriverController {
 	@Autowired
 	private DriverService driverService;
 	
-	
+
 	@PostMapping("/drivers")
 	public ResponseEntity<Driver> registerDriver(@RequestBody Driver driver){
 		
