@@ -11,6 +11,6 @@ public class CustomerDTO {
 
 	private String phonenumber;
 	private String password;
-	final Integer roll=3;
+	final Integer role=3;
 	
 }
