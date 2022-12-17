@@ -12,8 +12,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+	//customer exception
 	@ExceptionHandler(CustomerException.class)
-	public ResponseEntity<MyErrorDetails> myExceptionHandler(CustomerException ce, WebRequest req) {
+	public ResponseEntity<MyErrorDetails> customerExceptionHandler(CustomerException ce, WebRequest req) {
 		
 		MyErrorDetails err = new MyErrorDetails();
 		err.setTimestamp(LocalDateTime.now());
@@ -23,14 +24,29 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(DriverException.class)
-	public ResponseEntity<MyErrorDetails> driverExceptionHandler(DriverException de,WebRequest req){
-		MyErrorDetails err= new MyErrorDetails();
+
+	//cab exception
+	@ExceptionHandler(CabException.class)
+	public ResponseEntity<MyErrorDetails> cabExceptionHandler(CabException ce, WebRequest req) {
+		
+		MyErrorDetails err = new MyErrorDetails();
 		err.setTimestamp(LocalDateTime.now());
-		err.setMessage(de.getMessage());
+		err.setMessage(ce.getMessage());
 		err.setDetails(req.getDescription(false));
 		
-		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+
+	//booking exception
+	@ExceptionHandler(BookingException.class)
+	public ResponseEntity<MyErrorDetails> bookingExceptionHandler(BookingException ce, WebRequest req) {
+		
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ce.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(Exception.class)

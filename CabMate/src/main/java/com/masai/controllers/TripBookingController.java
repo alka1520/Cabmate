@@ -36,13 +36,20 @@ public class TripBookingController {
 	
 
 	@GetMapping("/cab/{status}")
-	public ResponseEntity<List<Cab>> gitTripHandler(@PathVariable("status") Boolean status){
+	public ResponseEntity<List<Cab>> getAvailableCabsHandler(@PathVariable("status") Boolean status){
 		
 		List<Cab> clist = cabService.findByAvailbilityStatus(status);
 		
 		return new ResponseEntity<List<Cab>>(clist,HttpStatus.OK);
 	}
 
+	@GetMapping("/trip")
+	public ResponseEntity<List<Booking>> getAllBookingDetailsOfCustomerHandler(){
+		
+		List<Booking> bookingList = tripService.getAllBookingsOfCustomer();
+		
+		return new ResponseEntity<List<Booking>>(bookingList,HttpStatus.OK);
+	}
 	
 	
 }

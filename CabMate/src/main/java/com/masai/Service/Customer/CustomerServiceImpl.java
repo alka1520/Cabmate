@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer existingCustomer = customerDao.findByPhone(customer.getPhone());
 		  
 		  if(existingCustomer == null) throw new CustomerException("Your Phone number is already registered");
-			 customer.setUserID(existingCustomer.getUserID());
+			 customer.setCustomerID(existingCustomer.getCustomerID());
 			 return customerDao.save(customer);
 			 	 
 	}

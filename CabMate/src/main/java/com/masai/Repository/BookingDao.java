@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.masai.Entities.Booking;
+import com.masai.Entities.Customer;
 
 public interface BookingDao extends JpaRepository<Booking, Integer> {
+	
+	public List<Booking> findByCustomer(Customer customer);
 	
 //	@Query(value="from booking where cab_id=?1")
 //	public List<Booking> getBookingListByCabid(Integer cabid);
