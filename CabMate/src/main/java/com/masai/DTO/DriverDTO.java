@@ -11,6 +11,6 @@ public class DriverDTO {
 
 	private String phonenumber;
 	private String password;
-	final Integer role=2;
+	final Integer roll=2;
 	
 }
