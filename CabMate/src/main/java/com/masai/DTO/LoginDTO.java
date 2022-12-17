@@ -5,12 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class AdminDTO {
+@AllArgsConstructor
+public class LoginDTO {
 
 	private String phonenumber;
 	private String password;
-	final Integer role=1;
+	private Integer role;
 	
 }

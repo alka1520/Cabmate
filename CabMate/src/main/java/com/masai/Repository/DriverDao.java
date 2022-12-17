@@ -7,5 +7,7 @@ import com.masai.Entities.Driver;
 
 @Repository
 public interface DriverDao extends JpaRepository<Driver, Integer>{
+	
+	public Driver findByPhone(String phone);
 
 }

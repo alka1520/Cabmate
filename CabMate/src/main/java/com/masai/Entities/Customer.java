@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer extends User{
 
 	@Id
@@ -28,10 +30,7 @@ public class Customer extends User{
 	@JsonIgnore
 	List<Booking> bookingList = new ArrayList<>();
 
-	/*
-	 * public Customer(Integer userID) { super(); this.userID = userID; }
-	 * 
-	 * public Customer() { super(); }
-	 */
+	final Integer role=3;
+	
 	
 }
