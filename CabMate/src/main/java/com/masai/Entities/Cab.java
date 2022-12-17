@@ -35,11 +35,5 @@ public class Cab {
 	@JsonIgnore
 	private Driver driver;
 	
-	
-	//private Booking bookingid;
-	
-	
-	
-	
 
 }
