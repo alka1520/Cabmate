@@ -86,7 +86,7 @@ public class TripBookingImpl implements TripBookingService{
 	@Override
 	public List<Booking> getAllBookingsOfCustomer() {
 		
-		//get customer id from user session 
+		//get customer id from user session - get cust id 
 		
 		Customer customer = customerDao.findByPhone("12345");
 		
