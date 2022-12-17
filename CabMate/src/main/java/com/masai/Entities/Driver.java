@@ -30,6 +30,7 @@ public class Driver extends User{
 	private Boolean approvalStatus=false;
 	
 
+	final Integer role=2;
 	
 	
 	@OneToOne(cascade = CascadeType.ALL)

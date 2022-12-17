@@ -11,22 +11,16 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer extends User{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userID;
 	
-//	private Integer bookingid;
 
-	public Customer(Integer userID) {
-		super();
-		this.userID = userID;
-	}
-
-	public Customer() {
-		super();
-	}
-
+	final Integer role=3;
+	
 	
 }

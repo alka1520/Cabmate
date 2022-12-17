@@ -9,21 +9,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Admin extends User{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 
-	
+	final Integer role=1;
 	
 
 }
