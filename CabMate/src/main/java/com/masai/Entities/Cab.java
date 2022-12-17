@@ -2,6 +2,7 @@ package com.masai.Entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,13 +23,13 @@ public class Cab {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer cabID;
+	private Integer cabId;
+	private String vehicleNo;
 	private Double rate;
 	private String cartype;
 	private String cabNumber;
 	private Boolean availbilityStatus;
 	
-	//cab book status
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="driverID")
@@ -36,10 +37,6 @@ public class Cab {
 	private Driver driver;
 	
 	
-	//private Booking bookingid;
 	
-	
-	
-	
-
 }
+

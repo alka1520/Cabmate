@@ -24,5 +24,6 @@ public class Admin extends User{
 	private Integer adminId;
 
 	
+	
 
 }
