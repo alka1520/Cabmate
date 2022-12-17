@@ -29,9 +29,7 @@ public class Driver extends User{
 	private Double rating;
 	private Boolean approvalStatus=false;
 	
-
 	final Integer role=2;
-	
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="cabId")
