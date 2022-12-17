@@ -23,7 +23,40 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
-	
+
+	//login exception
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<MyErrorDetails> customerExceptionHandler(LoginException ce, WebRequest req) {
+		
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ce.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	// driver exception
+	@ExceptionHandler(DriverException.class)
+	public ResponseEntity<MyErrorDetails> customerExceptionHandler(DriverException ce, WebRequest req) {
+		
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ce.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	// admin exception
+	@ExceptionHandler(AdminException.class)
+	public ResponseEntity<MyErrorDetails> customerExceptionHandler(AdminException ce, WebRequest req) {
+		
+		MyErrorDetails err = new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ce.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
 
 	//cab exception
 	@ExceptionHandler(CabException.class)
