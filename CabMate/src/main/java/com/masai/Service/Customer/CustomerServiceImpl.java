@@ -1,5 +1,7 @@
 package com.masai.Service.Customer;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerDao customerDao;
 	
-	@Autowired
-	private AdminDao adminDao;
 
 	@Override
 	public Customer registerCustomer(Customer customer) throws CustomerException {
@@ -38,28 +38,42 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer updateCustomer(Customer customer) throws CustomerException {
 	
+		
+		// In usersession customer is present or not 
 		Customer existingCustomer = customerDao.findByPhone(customer.getPhone());
 		  
-		  if(existingCustomer != null) throw new CustomerException("Your Phone number is already registered");
-		  
-		  return customerDao.save(customer);
+		  if(existingCustomer == null) throw new CustomerException("Your Phone number is already registered");
+			 customer.setUserID(existingCustomer.getUserID());
+			 return customerDao.save(customer);
+			 	 
 	}
 
 
 
 	@Override
 	public Customer deleteCustomer(String phone) throws CustomerException {
-		// TODO Auto-generated method stub
-		return null;
+		Customer existingCustomer = customerDao.findByPhone(phone);
+		  
+		  if(existingCustomer == null) throw new CustomerException("Customer is not found with phone number :"+phone);
+		  
+		   customerDao.delete(existingCustomer);
+		   return existingCustomer;
 	}
 
 
 
 	@Override
 	public Customer getCustomer(String phone) throws CustomerException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Customer existingCustomer = customerDao.findByPhone(phone);
+		  
+		  if(existingCustomer == null) throw new CustomerException("Customer is not found with phone number :"+phone);
+		  
+		   return existingCustomer;
+		
+		
 	}
+	
 	
 
 }
