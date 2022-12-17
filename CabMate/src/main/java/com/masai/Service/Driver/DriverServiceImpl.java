@@ -1,23 +1,38 @@
 package com.masai.Service.Driver;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.Entities.Booking;
 import com.masai.Entities.Cab;
 import com.masai.Entities.Driver;
+import com.masai.Entities.UserSession;
 import com.masai.Exception.DriverException;
+import com.masai.Repository.BookingDao;
 import com.masai.Repository.DriverDao;
+import com.masai.Repository.UserSessionDao;
 
 @Service
 public class DriverServiceImpl implements DriverService {
 	
 	@Autowired
 	private DriverDao driverDao;
+	
+	@Autowired
+	private UserSessionDao usersessionDao;
 
+	@Autowired
+	private BookingDao bookingDao;
+	
 	@Override
 	public Driver registerDriver(Driver driver)throws DriverException {
 		
         Driver existingDriver = driverDao.findByPhone(driver.getPhone());
+        
+        
 		
 		if(existingDriver!=null) throw new DriverException("Your phone number is already registered.");
 		
@@ -40,43 +55,79 @@ public class DriverServiceImpl implements DriverService {
 		driver1.setRoll(driver.getRoll());
 	
 		
+		driver1.setCab(cab);
 		cab.setDriver(driver1);
 		
+		
+		return driverDao.save(driver1);
+	}
+
+	@Override
+	public Driver updateDriver(Driver driver,String sessionid) throws DriverException {
+		
+		UserSession usersession=usersessionDao.findBySessionId(sessionid);
+		
+		if(usersession==null) {
+			throw new DriverException("User not login");
+		}
+		
+		//Optional<Driver> existingDriver = driverDao.findById(usersession.getUserid());
+		
+		//if(existingDriver==null) throw new DriverException("please enter correct details...");
+		
+		driver.setDriverID(usersession.getUserid());
+		
 		return driverDao.save(driver);
 	}
 
 	@Override
-	public Driver updateDriver(Driver driver) throws DriverException {
+	public Driver deleteDriver(String sessionid) throws DriverException {
+ 
+       UserSession usersession=usersessionDao.findBySessionId(sessionid);
 		
-        Driver existingDriver = driverDao.findByPhone(driver.getPhone());
+		if(usersession==null) {
+			throw new DriverException("User not login");
+		}
 		
-		if(existingDriver==null) throw new DriverException("please enter correct details...");
+        Optional<Driver> existingDriver = driverDao.findById(usersession.getUserid());
+//		
+//		if(existingDriver==null) throw new DriverException("please enter correct details...");
 		
-		driver.setDriverID(existingDriver.getDriverID());
-		
-		return driverDao.save(driver);
-	}
-
-	@Override
-	public Driver deleteDriver(String phone) throws DriverException {
-
-        Driver existingDriver = driverDao.findByPhone(phone);
-		
-		if(existingDriver==null) throw new DriverException("please enter correct details...");
-		
-		 driverDao.delete(existingDriver);
+		 driverDao.delete(existingDriver.get());
 		 
-		 return existingDriver;
+		 return existingDriver.get();
 	}
 
 	@Override
-	public Driver viewDriver(String phone) throws DriverException {
+	public Driver viewDriver(String sessionid) throws DriverException {
 		
-		Driver driver = driverDao.findByPhone(phone);
+        UserSession usersession=usersessionDao.findBySessionId(sessionid);
+		
+		if(usersession==null) {
+			throw new DriverException("User not login");
+		}
+		
+        Optional<Driver> driver = driverDao.findById(usersession.getUserid());
+		
+		
+		return driver.get();
+		
+	}
+
+	@Override
+	public List<Booking> viewAllBooking(String sessionid) throws DriverException {
+		  UserSession usersession=usersessionDao.findBySessionId(sessionid);
 			
-		if(driver==null) throw new DriverException("please enter correct details...");
+		if(usersession==null) {
+				throw new DriverException("User not login");
+		}
 		
-		return driver;
+		Integer cabid=driverDao.findById(usersession.getUserid()).get().getCab().getCabId();
+		
+//		List<Booking> bookingDetails=bookingDao.getBookingListByCabid(cabid);
+//		
+//		return bookingDetails;
+		return null;
 		
 	}
 	
