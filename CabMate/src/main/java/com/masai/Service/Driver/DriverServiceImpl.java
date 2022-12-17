@@ -47,7 +47,6 @@ public class DriverServiceImpl implements DriverService {
 		driver1.setLicenseNo(driver.getLicenseNo());
 		driver1.setPhone(driver.getPhone());
 		driver1.setRating(driver.getRating());
-		driver1.setRoll(driver.getRoll());
 	
 
 		driver1.setCab(cab);
