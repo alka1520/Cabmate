@@ -19,9 +19,9 @@ public interface AdminService {
 	
 	public Admin createAdmin(Admin admin);
 	
-	public Driver addDriver(Driver driver,String sessionid);
+	public Driver addDriverbyAdmin(Driver driver,String sessionid); // in driver
 	
-	public Driver deleteDriver(Integer id) throws DriverException;
+	public Driver deleteDriver(Integer id) throws DriverException; // in driver
 	
 	public Admin deleteAdmin(String sessionid) throws AdminException;
 	
@@ -31,15 +31,11 @@ public interface AdminService {
 	
 	public Admin viewAdminDetails(String sessionid);
 	
-	public List<Driver> viewDrivers(String sessionid);
-	
 	public List<Admin> viewAdmins(String sessionid);
 	
-	public List<Customer> viewCustomers(String sessionid);
+	public List<Booking> viewBookings(String sessionid); // in booking
 	
-	public List<Booking> viewBookings(String sessionid);
+	public List<Booking> viewBookingsByDate(String date,String sessionid); // in booking
 	
-	public List<Booking> viewBookingsByDate(String date,String sessionid);
-	
-	public List<Booking> viewBookingsByDateSpan(String startdate,String enddate,String sessionid);
+	public List<Booking> viewBookingsByDateSpan(String startdate,String enddate,String sessionid); // in booking
 }

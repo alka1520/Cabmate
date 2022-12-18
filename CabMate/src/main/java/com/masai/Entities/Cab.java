@@ -27,9 +27,6 @@ public class Cab {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cabId;
 	
-	
-	
-	@NotNull
 	private Double rate;
 	
 	@NotNull

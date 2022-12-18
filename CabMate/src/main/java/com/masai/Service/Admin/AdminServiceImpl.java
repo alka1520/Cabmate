@@ -54,7 +54,7 @@ public class AdminServiceImpl implements AdminService{
 
 	//Driver Service
 	@Override
-	public Driver addDriver(Driver driver,String sessionid) {
+	public Driver addDriverbyAdmin(Driver driver,String sessionid) {
 		UserSession us=usersessiondao.findBySessionId(sessionid);
 		if(us!=null) {
 		
@@ -78,7 +78,6 @@ public class AdminServiceImpl implements AdminService{
 			Driver dri=d.get();
 			driverdao.delete(dri);
 			return dri;
-			
 		}
 		throw new DriverException("Driver not found");
 		
@@ -135,19 +134,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	//Driver Service
-	@Override
-	public List<Driver> viewDrivers(String sessionid) {
-		UserSession us=usersessiondao.findBySessionId(sessionid);
-		if(us!=null) {
-			List<Driver> list=driverdao.findAll();
-			if(list.size()==0) {
-				throw new DriverException("No Driver Exists");
-			}
-			return list;
-		}else {
-			throw new AdminException("Not logged in, LogIn first");
-		}
-	}
+	
 
 	@Override
 	public List<Admin> viewAdmins(String sessionid) {
@@ -158,21 +145,6 @@ public class AdminServiceImpl implements AdminService{
 		}else {
 			throw new AdminException("Not logged in, LogIn first");
 		}
-	}
-
-	//Customer Service
-	@Override
-	public List<Customer> viewCustomers(String sessionid) {
-		UserSession us=usersessiondao.findBySessionId(sessionid);
-		if(us!=null) {
-			List<Customer> list=customerdao.findAll();
-			if(list.size()==0) {
-				throw new CustomerException("No customer Exists");
-			}
-			return list;
-		}else {
-			throw new AdminException("Not logged in, LogIn first");
-		}	
 	}
 
 	//Booking Service
