@@ -1,5 +1,6 @@
 package com.masai.Entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class User {
 	
 	@NotNull
+	@Column(unique = true)
 	@Pattern(regexp = "[6789]{1}[0-9]{9}", message = "Enter valid 10 digit mobile number")
 	private String phone;
 	

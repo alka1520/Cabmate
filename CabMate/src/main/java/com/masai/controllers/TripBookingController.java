@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.Entities.Booking;
 import com.masai.Entities.Cab;
+import com.masai.Entities.Driver;
 import com.masai.Service.Cab.CabService;
 import com.masai.Service.TripBooking.TripBookingService;
 
@@ -55,12 +57,19 @@ public class TripBookingController {
 		return new ResponseEntity<List<Booking>>(bookingList,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/trip/{bookingId}/{sessionid}")
-	public ResponseEntity<Booking> deleteBookingOfCustomerHandler(@PathVariable("bookingId") Integer bookingId, @PathVariable("sessionid") String sessionid){
+	@PutMapping("/updateTripStatus/{bookingId}/{sessionid}")
+	public ResponseEntity<String> updateDriverHandler(@PathVariable("bookingId") Integer bookingId, @PathVariable("sessionid") String sessionid){
 		
-		Booking booking = tripService.deleteBooking(bookingId,sessionid);
-		
-		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+		String status =tripService.deleteBooking(bookingId,sessionid);
+		return new ResponseEntity<String>(status,HttpStatus.CREATED);
 	}
+	
+//	@DeleteMapping("/trip/{bookingId}/{sessionid}")
+//	public ResponseEntity<Booking> deleteBookingOfCustomerHandler(@PathVariable("bookingId") Integer bookingId, @PathVariable("sessionid") String sessionid){
+//		
+//		Booking booking = tripService.deleteBooking(bookingId,sessionid);
+//		
+//		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+//	}
 	
 }

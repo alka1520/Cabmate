@@ -29,18 +29,18 @@ public class Driver extends User{
 	private Integer driverID;
 	
 	@NotNull
-	@Pattern(regexp = "[A-Z]{2}[0-9]{13}", message = "Enter valid License number")
+	@Pattern(regexp = "[A-Z||a-z]{2}[0-9]{13}", message = "Enter valid License number")
 	private String LicenseNo;
 	
 	@Max(value=5)
 	@Min(value=0)
 	private Double rating;
 	
-	private Boolean approvalStatus=false;
+	private Boolean approvalStatus=true;
 	
 	final Integer role=2;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="cabId")
 	private Cab cab;
 

@@ -12,6 +12,6 @@ public interface TripBookingService {
 	
 	public List<Booking> getAllBookingsOfCustomer(String sessionid);
 	
-	public Booking deleteBooking(Integer bookingId,String sessionid) throws BookingException;
+	public String deleteBooking(Integer bookingId,String sessionid) throws BookingException;
 	
 }

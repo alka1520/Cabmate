@@ -114,7 +114,7 @@ public class TripBookingImpl implements TripBookingService{
 	}
 
 	@Override
-	public Booking deleteBooking(Integer bookingId,String sessionid)throws BookingException {
+	public String deleteBooking(Integer bookingId,String sessionid)throws BookingException {
 		
 		if(usersessionDao.findBySessionId(sessionid) == null) {
 			throw new LoginException("login first !");
@@ -126,9 +126,14 @@ public class TripBookingImpl implements TripBookingService{
 
 		Booking booking =  bookingDao.findById(bookingId).orElseThrow(()-> new BookingException("No booking found with bookingId :"+bookingId));
 		
-		bookingDao.deleteById(bookingId);
+//		bookingDao.deleteById(bookingId);
 		
-		return booking;
+		Cab cab = booking.getCab();
+		cab.setAvailbilityStatus(false);
+		cabDao.save(cab);
+		
+		
+		return "Thank you ,hope you are enjoying our service !";
 	}
 	
 	

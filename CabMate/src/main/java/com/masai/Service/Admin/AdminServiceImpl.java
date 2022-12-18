@@ -1,6 +1,7 @@
 package com.masai.Service.Admin;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.masai.Entities.Admin;
 import com.masai.Entities.Booking;
+import com.masai.Entities.Cab;
 import com.masai.Entities.Customer;
 import com.masai.Entities.Driver;
 import com.masai.Entities.UserSession;
@@ -90,6 +92,7 @@ public class AdminServiceImpl implements AdminService{
 		if(d.isPresent()) {
 			Admin dri=d.get();
 			admindao.delete(dri);
+			usersessiondao.delete(us);
 			return dri;
 			
 		}
@@ -179,16 +182,29 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 	
+	@Override
+	public List<Booking> findByBookingStatus(Boolean bookingstatus) {
+		List<Booking> bookinglist = new ArrayList<>();
+		if(bookingstatus) {
+			bookinglist = bookingdao.findByBookingStatus(true);
+		}else {
+			bookinglist = bookingdao.findByBookingStatus(false);
+		}
+		
+		return bookinglist;
+	}
 	
 	//Booking Service
 
 	@Override
 	public List<Booking> viewBookingsByDateSpan(String startdate, String enddate, String sessionid) {
 		UserSession us=usersessiondao.findBySessionId(sessionid);
-		LocalDate ld=LocalDate.parse(startdate);
-		LocalDate lded=LocalDate.parse(enddate);
+		
+		LocalDate sld = LocalDate.parse(startdate);
+		LocalDate eld = LocalDate.parse(enddate);
+		
 		if(us!=null) {
-			List<Booking> list=bookingdao.getBookingsByDateSpan(ld, lded, sessionid);
+			List<Booking> list=bookingdao.getBookingsByDateSpan(sld, eld, sessionid);
 			if(list.size()==0) {
 				throw new BookingException("No Booking Exists on given Date span");
 			}

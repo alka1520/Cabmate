@@ -80,6 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer existingCustomer = customerDao.findById(usersessiondao.findBySessionId(sessionid).getUserid()).get();
 		  
 		customerDao.delete(existingCustomer);
+		usersessiondao.delete(usersessiondao.findBySessionId(sessionid));
 		return existingCustomer;
 	}
 

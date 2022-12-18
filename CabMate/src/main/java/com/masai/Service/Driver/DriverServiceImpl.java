@@ -70,18 +70,13 @@ public class DriverServiceImpl implements DriverService {
 	public Driver deleteDriver(String sessionid) throws DriverException {
  
        UserSession usersession=usersessiondao.findBySessionId(sessionid);
-		
 		if(usersession==null) {
 			throw new DriverException("User not login");
-		}
-		
-        Optional<Driver> existingDriver = driverDao.findById(usersession.getUserid());
-//		
-//		if(existingDriver==null) throw new DriverException("please enter correct details...");
-		
-		 driverDao.delete(existingDriver.get());
-		 
-		 return existingDriver.get();
+		}	
+        Driver existingDriver = driverDao.findById(usersession.getUserid()).orElseThrow(() -> new DriverException("driver not found"));	
+		driverDao.deleteById(existingDriver.getDriverID());;
+		usersessiondao.delete(usersessiondao.findBySessionId(sessionid)); 
+		return existingDriver;
 	}
 
 	@Override
@@ -108,12 +103,10 @@ public class DriverServiceImpl implements DriverService {
 				throw new DriverException("User not login");
 		}
 		
-		Integer cabid=driverDao.findById(usersession.getUserid()).get().getCab().getCabId();
+		Cab cab =driverDao.findById(usersession.getUserid()).get().getCab();	
+		List<Booking> bookingDetails=bookingDao.findByCab(cab);
 		
-//		List<Booking> bookingDetails=bookingDao.getBookingListByCabid(cabid);
-//		
-//		return bookingDetails;
-		return null;
+		return bookingDetails;
 		
 	}
 	

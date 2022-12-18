@@ -18,6 +18,7 @@ import com.masai.DTO.AdminDTO;
 import com.masai.DTO.LoginDTO;
 import com.masai.Entities.Admin;
 import com.masai.Entities.Booking;
+import com.masai.Entities.Cab;
 import com.masai.Entities.Customer;
 import com.masai.Entities.Driver;
 import com.masai.Exception.LoginException;
@@ -25,6 +26,7 @@ import com.masai.Service.Admin.AdminService;
 import com.masai.Service.Customer.CustomerService;
 import com.masai.Service.Driver.DriverService;
 import com.masai.Service.Login.LoginService;
+import com.masai.Service.TripBooking.TripBookingService;
 
 
 
@@ -45,6 +47,8 @@ public class AdminController {
 	
 	@Autowired
 	private DriverService driverService;
+	
+	
 	
 	
 	
@@ -107,11 +111,13 @@ public class AdminController {
 		return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 	}
 	
-//	@PostMapping("/approveDriver")
-//	public ResponseEntity<Driver> approveDriverHandler(@RequestBody Driver driver){
-//		Driver registeredDriver =adminS.addDriver(driver);
-//		return new ResponseEntity<Driver>(registeredDriver,HttpStatus.OK);
-//	}
+	@GetMapping("/bookingbyStatus/{status}")
+	public ResponseEntity<List<Booking>> getAvailableCabsHandler(@Valid @PathVariable("status") Boolean status){
+		
+		List<Booking> blist = adminS.findByBookingStatus(status);
+		
+		return new ResponseEntity<List<Booking>>(blist,HttpStatus.OK);
+	}
 	
 	@GetMapping("/driversbyadmin/{sessionid}")
 	public ResponseEntity<List<Driver>> viewDriverListHandler(@PathVariable("sessionid") String sessionid){

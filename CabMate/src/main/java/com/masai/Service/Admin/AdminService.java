@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.masai.Entities.Admin;
 import com.masai.Entities.Booking;
+import com.masai.Entities.Cab;
 import com.masai.Entities.Customer;
 import com.masai.Entities.Driver;
 import com.masai.Exception.AdminException;
@@ -16,6 +17,7 @@ import com.masai.Exception.DriverException;
 public interface AdminService {
 
 	
+	public List<Booking> findByBookingStatus(Boolean bookingstatus);
 	
 	public Admin createAdmin(Admin admin);
 	
