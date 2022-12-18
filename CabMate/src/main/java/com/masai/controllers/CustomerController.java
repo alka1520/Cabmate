@@ -75,10 +75,10 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/customer/{phone}")
-	public ResponseEntity<Customer> deleteCustomerHandler(@Valid @PathVariable("phone") String phone ){
+	@DeleteMapping("/customer/{sessionid}")
+	public ResponseEntity<Customer> deleteCustomerHandler(@Valid @PathVariable("sessionid") String sessionid ){
 		
-		Customer deletedCustomer = customerService.deleteCustomer(phone);
+		Customer deletedCustomer = customerService.deleteCustomer(sessionid);
 		
 		return new ResponseEntity<Customer>(deletedCustomer,HttpStatus.OK);
 	}
