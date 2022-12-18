@@ -113,7 +113,23 @@ public class TripBookingImpl implements TripBookingService{
 		
 	}
 
-	
+	@Override
+	public Booking deleteBooking(Integer bookingId,String sessionid)throws BookingException {
+		
+		if(usersessionDao.findBySessionId(sessionid) == null) {
+			throw new LoginException("login first !");
+		}
+		
+		Customer customer = customerDao.findById(usersessionDao.findBySessionId(sessionid).getUserid()).get();
+		
+		if(customer == null) throw new CustomerException("Customer not login yet..");
+
+		Booking booking =  bookingDao.findById(bookingId).orElseThrow(()-> new BookingException("No booking found with bookingId :"+bookingId));
+		
+		bookingDao.deleteById(bookingId);
+		
+		return booking;
+	}
 	
 	
 }

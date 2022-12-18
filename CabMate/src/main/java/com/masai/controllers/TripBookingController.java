@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +30,8 @@ public class TripBookingController {
 	private CabService cabService;
 	
 	
-	@PostMapping("/trip")
-	public ResponseEntity<Booking> bookTripHandler(@Valid @RequestBody Booking booking ,@RequestParam String sessionid){
+	@PostMapping("/trip/{sessionid}")
+	public ResponseEntity<Booking> bookTripHandler(@Valid @RequestBody Booking booking ,@PathVariable("sessionid") String sessionid){
 		
 		Booking bookTrip = tripService.bookTrip(booking,sessionid);
 		
@@ -46,13 +47,20 @@ public class TripBookingController {
 		return new ResponseEntity<List<Cab>>(clist,HttpStatus.OK);
 	}
 
-	@GetMapping("/trip")
-	public ResponseEntity<List<Booking>> getAllBookingDetailsOfCustomerHandler(@RequestParam String sessionid){
+	@GetMapping("/trip/{sessionid}")
+	public ResponseEntity<List<Booking>> getAllBookingDetailsOfCustomerHandler(@PathVariable("sessionid") String sessionid){
 		
 		List<Booking> bookingList = tripService.getAllBookingsOfCustomer(sessionid);
 		
 		return new ResponseEntity<List<Booking>>(bookingList,HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/trip/{bookingId}/{sessionid}")
+	public ResponseEntity<Booking> deleteBookingOfCustomerHandler(@PathVariable("bookingId") Integer bookingId, @PathVariable("sessionid") String sessionid){
+		
+		Booking booking = tripService.deleteBooking(bookingId,sessionid);
+		
+		return new ResponseEntity<Booking>(booking,HttpStatus.OK);
+	}
 	
 }
