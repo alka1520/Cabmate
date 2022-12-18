@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -31,8 +32,8 @@ public class Driver extends User{
 	@Pattern(regexp = "[A-Z || a-z]{2}[0-9]{13}", message = "Enter valid License number")
 	private String LicenseNo;
 	
-	@NotNull
 	@Max(value=5)
+	@Min(value=0)
 	private Double rating;
 	
 	private Boolean approvalStatus=false;

@@ -7,8 +7,9 @@ import com.masai.Entities.Booking;
 
 public interface TripBookingService {
 
-	public Booking bookTrip(Booking booking);
+	public Booking bookTrip(Booking booking,String sessionid);
 	
-	public List<Booking> getAllBookingsOfCustomer();
+	public List<Booking> getAllBookingsOfCustomer(String sessionid);
+	
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.Entities.Booking;
@@ -29,9 +30,9 @@ public class TripBookingController {
 	
 	
 	@PostMapping("/trip")
-	public ResponseEntity<Booking> bookTripHandler(@Valid @RequestBody Booking booking){
+	public ResponseEntity<Booking> bookTripHandler(@Valid @RequestBody Booking booking ,@RequestParam String sessionid){
 		
-		Booking bookTrip = tripService.bookTrip(booking);
+		Booking bookTrip = tripService.bookTrip(booking,sessionid);
 		
 		return new ResponseEntity<Booking>(bookTrip,HttpStatus.OK);
 	}
@@ -46,9 +47,9 @@ public class TripBookingController {
 	}
 
 	@GetMapping("/trip")
-	public ResponseEntity<List<Booking>> getAllBookingDetailsOfCustomerHandler(){
+	public ResponseEntity<List<Booking>> getAllBookingDetailsOfCustomerHandler(@RequestParam String sessionid){
 		
-		List<Booking> bookingList = tripService.getAllBookingsOfCustomer();
+		List<Booking> bookingList = tripService.getAllBookingsOfCustomer(sessionid);
 		
 		return new ResponseEntity<List<Booking>>(bookingList,HttpStatus.OK);
 	}

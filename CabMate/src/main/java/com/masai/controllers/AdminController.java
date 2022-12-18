@@ -1,12 +1,8 @@
 package com.masai.controllers;
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.masai.DTO.AdminDTO;
 import com.masai.DTO.LoginDTO;
 import com.masai.Entities.Admin;
@@ -51,37 +46,31 @@ public class AdminController {
 	private DriverService driverService;
 	
 	
+	
 	@PostMapping("/login")
 	public ResponseEntity<String> logInAdminHandler(@Valid @RequestBody AdminDTO dto) throws LoginException {
 		LoginDTO ldto = new LoginDTO(dto.getPhonenumber(), dto.getPassword(), dto.getRole());
 		String result = logS.login(ldto);
-
 		return new ResponseEntity<String>(result,HttpStatus.OK );
-		
-		
 	}
 	
 	@PostMapping("/logout")
-	public String logoutAdminHandler(@Valid @RequestParam(required = false) String key) throws LoginException {
-		return logS.logOut(key);
-		
+	public String logoutAdminHandler(@Valid @RequestParam(required = false) String sessionid) throws LoginException {
+		return logS.logOut(sessionid);
 	}
 
-	
-	
+
 	@PostMapping("/registeradmin")
 	public ResponseEntity<Admin> createAdminHandler(@Valid @RequestBody Admin admin)	{
 		Admin a=adminS.createAdmin(admin);
-		
 		return new ResponseEntity<Admin>(a, HttpStatus.CREATED);
-		
 	}
 	
 	
 	
 	@PostMapping("/registerDriver")
-	public ResponseEntity<Driver> registerDriverHandler(@Valid @RequestBody Driver driver,@RequestParam String sessionid){
-		Driver registeredDriver =adminS.addDriver(driver,sessionid);
+	public ResponseEntity<Driver> registerDriverByAdminHandler(@Valid @RequestBody Driver driver,@RequestParam String sessionid){
+		Driver registeredDriver =adminS.addDriverbyAdmin(driver,sessionid);
 		return new ResponseEntity<Driver>(registeredDriver,HttpStatus.CREATED);
 	}
 	
@@ -112,7 +101,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin")
-	public ResponseEntity<Admin> viewdDetailsHandler(@Valid @RequestParam String id){
+	public ResponseEntity<Admin> viewAdminDetailsHandler(@Valid @RequestParam String id){
 		Admin admin=adminS.viewAdminDetails(id);
 		return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 	}
@@ -126,7 +115,7 @@ public class AdminController {
 	@GetMapping("/driversbyadmin")
 	public ResponseEntity<List<Driver>> viewDriverListHandler(@Valid @RequestParam String sessionid){
 
-		List<Driver> list=adminS.viewDrivers(sessionid);
+		List<Driver> list=driverService.viewDrivers(sessionid);
 		return new ResponseEntity<List<Driver>>(list,HttpStatus.OK);
 	}
 	
@@ -140,7 +129,7 @@ public class AdminController {
 	@GetMapping("/customers")
 	public ResponseEntity<List<Customer>> viewCustomerListHandler(@Valid @RequestParam String sessionid){
 
-		List<Customer> list=adminS.viewCustomers(sessionid);
+		List<Customer> list=customerS.viewCustomers(sessionid);
 		return new ResponseEntity<List<Customer>>(list,HttpStatus.OK);
 	}
 

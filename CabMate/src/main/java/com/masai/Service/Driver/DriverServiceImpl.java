@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.masai.Entities.Admin;
 import com.masai.Entities.Booking;
 import com.masai.Entities.Cab;
 import com.masai.Entities.Driver;
 import com.masai.Entities.UserSession;
+import com.masai.Exception.AdminException;
 import com.masai.Exception.DriverException;
+import com.masai.Exception.LoginException;
 import com.masai.Repository.BookingDao;
 import com.masai.Repository.DriverDao;
 import com.masai.Repository.UserSessionDao;
@@ -23,7 +25,7 @@ public class DriverServiceImpl implements DriverService {
 	private DriverDao driverDao;
 	
 	@Autowired
-	private UserSessionDao usersessionDao;
+	private UserSessionDao usersessiondao;
 
 	@Autowired
 	private BookingDao bookingDao;
@@ -33,13 +35,11 @@ public class DriverServiceImpl implements DriverService {
 		
 		Cab cab = new Cab();
 		cab.setCabNumber(driver.getCab().getCabNumber());
-
 		cab.setCartype(driver.getCab().getCartype());
 		cab.setRate(driver.getCab().getRate());
 		cab.setAvailbilityStatus(true);
 		
 		Driver driver1 = new Driver();
-
 		driver1.setName(driver.getName());
 		driver1.setEmail(driver.getEmail());
 		driver1.setAddress(driver.getAddress());
@@ -47,12 +47,9 @@ public class DriverServiceImpl implements DriverService {
 		driver1.setLicenseNo(driver.getLicenseNo());
 		driver1.setPhone(driver.getPhone());
 		driver1.setRating(driver.getRating());
-	
-
 		driver1.setCab(cab);
 		cab.setDriver(driver1);
-		
-		
+			
 		return driverDao.save(driver1);
 
 	}
@@ -60,18 +57,11 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public Driver updateDriver(Driver driver,String sessionid) throws DriverException {
 		
-		UserSession usersession=usersessionDao.findBySessionId(sessionid);
-		
+		UserSession usersession=usersessiondao.findBySessionId(sessionid);
 		if(usersession==null) {
 			throw new DriverException("User not login");
 		}
-		
-		//Optional<Driver> existingDriver = driverDao.findById(usersession.getUserid());
-		
-		//if(existingDriver==null) throw new DriverException("please enter correct details...");
-		
 		driver.setDriverID(usersession.getUserid());
-		
 		return driverDao.save(driver);
 
 	}
@@ -79,7 +69,7 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public Driver deleteDriver(String sessionid) throws DriverException {
  
-       UserSession usersession=usersessionDao.findBySessionId(sessionid);
+       UserSession usersession=usersessiondao.findBySessionId(sessionid);
 		
 		if(usersession==null) {
 			throw new DriverException("User not login");
@@ -97,7 +87,7 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public Driver viewDriver(String sessionid) throws DriverException {
 		
-        UserSession usersession=usersessionDao.findBySessionId(sessionid);
+        UserSession usersession=usersessiondao.findBySessionId(sessionid);
 		
 		if(usersession==null) {
 			throw new DriverException("User not login");
@@ -112,7 +102,7 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public List<Booking> viewAllBooking(String sessionid) throws DriverException {
-		  UserSession usersession=usersessionDao.findBySessionId(sessionid);
+		  UserSession usersession=usersessiondao.findBySessionId(sessionid);
 			
 		if(usersession==null) {
 				throw new DriverException("User not login");
@@ -127,6 +117,31 @@ public class DriverServiceImpl implements DriverService {
 		
 	}
 	
+	@Override
+	public List<Driver> viewDrivers(String sessionid) {
+		UserSession us=usersessiondao.findBySessionId(sessionid);
+		if(us!=null) {
+			List<Driver> list=driverDao.findAll();
+			if(list.size()==0) {
+				throw new DriverException("No Driver Exists");
+			}
+			return list;
+		}else {
+			throw new LoginException("Not logged in, LogIn first");
+		}
+	}
+	
+	@Override
+	public String updatePassword(String email, String phone, String password) {
+		Driver d = driverDao.findByPhone(phone);
+		if(d.getEmail().equals(email)) {
+			d.setPassword(password);
+			driverDao.save(d);
+			return "Password Updated Successfully!";
+		}
+		throw new DriverException("User doesn't exist");
+	}
+
 	
 
 }

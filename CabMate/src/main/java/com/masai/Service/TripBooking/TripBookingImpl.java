@@ -1,5 +1,6 @@
 package com.masai.Service.TripBooking;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,11 @@ import com.masai.Entities.Customer;
 import com.masai.Exception.BookingException;
 import com.masai.Exception.CabException;
 import com.masai.Exception.CustomerException;
+import com.masai.Exception.LoginException;
 import com.masai.Repository.BookingDao;
 import com.masai.Repository.CabDao;
 import com.masai.Repository.CustomerDao;
+import com.masai.Repository.UserSessionDao;
 import com.masai.Service.Cab.CabService;
 
 @Service
@@ -32,20 +35,28 @@ public class TripBookingImpl implements TripBookingService{
 	@Autowired
 	private CustomerDao customerDao;
 	
+	@Autowired
+	private UserSessionDao usersessionDao;
+	
 	@Override
-	public Booking bookTrip(Booking booking) {
+	public Booking bookTrip(Booking booking ,String sessionid) {
 		
-		//get customer id form userSession
-		
-		Customer customer = customerDao.findByPhone("12345");
-		
-		if(customer == null) throw new CustomerException("Customer not login yet..");
-		
+		if(usersessionDao.findBySessionId(sessionid) == null) {
+			throw new LoginException("login first !");
+		}
+				
+		Customer customer = customerDao.findById(usersessionDao.findBySessionId(sessionid).getUserid()).get();		
 		List<Cab> cabList = cabDao.findByAvailbilityStatus(true);
 		
 		if(cabList.size() != 0) {
+			String fdate = booking.getFromDate()+"";
+			String tdate = booking.getToDate()+"";
 			
-			//LocalDateTime localDT = LocalDateTime.parse(booking.getFromDate());
+			LocalDate localDT1 = LocalDate.parse(fdate);
+			LocalDate localDT2 = LocalDate.parse(tdate);
+			
+			booking.setFromDate(localDT1);
+			booking.setToDate(localDT2);
 			
 			//It is tight coupling
 			//We will convert it into loose coupling when we conneted to front end
@@ -66,7 +77,7 @@ public class TripBookingImpl implements TripBookingService{
 			Random random = new Random();
 			
 			booking.setKm(random.nextDouble(100));
-			booking.setBill(booking.getKm() * 10);
+			booking.setBill(booking.getKm() * cab.getRate());
 			booking.setBookingStatus(true);
 			
 			//Association mapping cab - booking
@@ -84,12 +95,13 @@ public class TripBookingImpl implements TripBookingService{
 	}
 
 	@Override
-	public List<Booking> getAllBookingsOfCustomer() {
+	public List<Booking> getAllBookingsOfCustomer(String sessionid) {
 		
-		//get customer id from user session - get cust id 
+		if(usersessionDao.findBySessionId(sessionid) == null) {
+			throw new LoginException("login first !");
+		}
 		
-		Customer customer = customerDao.findByPhone("12345");
-		
+		Customer customer = customerDao.findById(usersessionDao.findBySessionId(sessionid).getUserid()).get();
 		if(customer == null) throw new CustomerException("Customer not login yet..");
 		
 		List<Booking> bookingList = bookingDao.findByCustomer(customer);

@@ -19,7 +19,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GeneratorType;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -43,12 +45,13 @@ public class Booking {
 	private String destination;
 	
 	@NotNull
+//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate fromDate;
 	
 	@NotNull
 	private LocalDate toDate;
 	
-	@NotNull
 	private Double bill;
 	private Double km;
 	private Boolean bookingStatus=false;
