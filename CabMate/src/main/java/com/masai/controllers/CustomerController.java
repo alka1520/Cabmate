@@ -1,5 +1,7 @@
 package com.masai.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.Entities.Admin;
 import com.masai.Entities.Customer;
+import com.masai.Entities.Verification;
 import com.masai.Service.Customer.CustomerService;
 
 @RestController
@@ -24,7 +27,7 @@ public class CustomerController {
 	
 	
 	@GetMapping("/customer")
-	public ResponseEntity<Customer> getCustomer(@RequestParam String phone){
+	public ResponseEntity<Customer> getCustomer(@Valid @RequestParam String phone){
 		
 		Customer customer = customerService.getCustomer(phone);
 		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
@@ -32,7 +35,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer){
+	public ResponseEntity<Customer> registerCustomer(@Valid @RequestBody Customer customer){
 		
 		Customer newCustomer = customerService.registerCustomer(customer);
 		
@@ -41,7 +44,7 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/customer")
-	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer){
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer){
 		
 		Customer updatedCustomer = customerService.updateCustomer(customer);
 		
@@ -49,11 +52,20 @@ public class CustomerController {
 	}
 	
 	@DeleteMapping("/customer/{phone}")
-	public ResponseEntity<Customer> deleteCustomer(@PathVariable("phone") String phone ){
+	public ResponseEntity<Customer> deleteCustomer(@Valid @PathVariable("phone") String phone ){
 		
 		Customer deletedCustomer = customerService.deleteCustomer(phone);
 		
 		return new ResponseEntity<Customer>(deletedCustomer,HttpStatus.OK);
+	}
+	@PostMapping("/verify")
+	public ResponseEntity<Boolean> verifyCustomer(@Valid @RequestBody  Verification verify){
+		
+		Boolean res=customerService.verifyOtp(verify.getOtp(), verify.getEmail());
+		
+		
+		return new ResponseEntity<Boolean>(res,HttpStatus.CREATED);
+		
 	}
 
 	

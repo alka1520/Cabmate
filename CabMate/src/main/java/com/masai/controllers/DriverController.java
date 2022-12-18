@@ -2,6 +2,8 @@ package com.masai.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class DriverController {
 	
 
 	@PostMapping("/drivers")
-	public ResponseEntity<Driver> registerDriver(@RequestBody Driver driver){
+	public ResponseEntity<Driver> registerDriver(@Valid @RequestBody Driver driver){
 		
 		Driver registeredDriver =driverService.registerDriver(driver);
 		
@@ -35,7 +37,7 @@ public class DriverController {
 	}
 	
 	@PutMapping("/drivers")
-	public ResponseEntity<Driver> updateDriver(@RequestBody Driver driver,@RequestParam String sessionid){
+	public ResponseEntity<Driver> updateDriver(@Valid @RequestBody Driver driver,@RequestParam String sessionid){
 		
 		Driver registeredDriver =driverService.updateDriver(driver,sessionid);
 		
@@ -43,7 +45,7 @@ public class DriverController {
 	}
 	
 	@DeleteMapping("/drivers")
-	public ResponseEntity<Driver> deleteDriver(@RequestParam String sessionid){
+	public ResponseEntity<Driver> deleteDriver(@Valid @RequestParam String sessionid){
 		
 		Driver registeredDriver =driverService.deleteDriver(sessionid);
 		
@@ -51,7 +53,7 @@ public class DriverController {
 	}
 	
 	@GetMapping("/drivers")
-	public ResponseEntity<Driver> getDriver(@RequestParam String sessionid){
+	public ResponseEntity<Driver> getDriver(@Valid @RequestParam String sessionid){
 		
 		Driver registeredDriver =driverService.viewDriver(sessionid);
 		
@@ -59,7 +61,7 @@ public class DriverController {
 	}
 	
 	@GetMapping("/bookingList")
-	public ResponseEntity<List<Booking>> viewAllBookingDetails(@RequestParam String sessionid){
+	public ResponseEntity<List<Booking>> viewAllBookingDetails(@Valid @RequestParam String sessionid){
 		
 		List<Booking> bookingList = driverService.viewAllBooking(sessionid);
 		

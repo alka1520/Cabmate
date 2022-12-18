@@ -2,6 +2,8 @@ package com.masai.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class TripBookingController {
 	
 	
 	@PostMapping("/trip")
-	public ResponseEntity<Booking> bookTripHandler(@RequestBody Booking booking){
+	public ResponseEntity<Booking> bookTripHandler(@Valid @RequestBody Booking booking){
 		
 		Booking bookTrip = tripService.bookTrip(booking);
 		
@@ -36,7 +38,7 @@ public class TripBookingController {
 	
 
 	@GetMapping("/cab/{status}")
-	public ResponseEntity<List<Cab>> getAvailableCabsHandler(@PathVariable("status") Boolean status){
+	public ResponseEntity<List<Cab>> getAvailableCabsHandler(@Valid @PathVariable("status") Boolean status){
 		
 		List<Cab> clist = cabService.findByAvailbilityStatus(status);
 		

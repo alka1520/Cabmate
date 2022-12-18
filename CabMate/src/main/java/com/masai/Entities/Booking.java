@@ -15,8 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GeneratorType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,10 +36,19 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer bookingid;
 
+	@NotNull
 	private String sourceLocation;
+	
+	@NotNull
 	private String destination;
-	private String fromDate;
-	private String toDate;
+	
+	@NotNull
+	private LocalDate fromDate;
+	
+	@NotNull
+	private LocalDate toDate;
+	
+	@NotNull
 	private Double bill;
 	private Double km;
 	private Boolean bookingStatus=false;
@@ -53,7 +64,7 @@ public class Booking {
 	@JoinColumn(name = "customerId") 
 	private Customer customer;
 	
-*/	 
+ 
 
 	
 }

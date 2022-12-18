@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +27,14 @@ public class Driver extends User{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer driverID;
 	
+	@NotNull
+	@Pattern(regexp = "[A-Z || a-z]{2}[0-9]{13}", message = "Enter valid License number")
 	private String LicenseNo;
 	
+	@NotNull
+	@Max(value=5)
 	private Double rating;
+	
 	private Boolean approvalStatus=false;
 	
 	final Integer role=2;

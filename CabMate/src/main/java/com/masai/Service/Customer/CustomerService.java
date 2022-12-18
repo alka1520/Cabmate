@@ -16,5 +16,7 @@ public interface CustomerService {
 	
 	public Customer getCustomer(String phone) throws CustomerException;
 	
+	public Boolean verifyOtp(String otp,String email) throws CustomerException;
+	
 	
 }

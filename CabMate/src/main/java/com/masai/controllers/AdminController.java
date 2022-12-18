@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public class AdminController {
 	
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> logInAdminHandler(@RequestBody AdminDTO dto) throws LoginException {
+	public ResponseEntity<String> logInAdminHandler(@Valid @RequestBody AdminDTO dto) throws LoginException {
 		LoginDTO ldto = new LoginDTO(dto.getPhonenumber(), dto.getPassword(), dto.getRole());
 		String result = logS.login(ldto);
 
@@ -60,7 +62,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/logout")
-	public String logoutAdminHandler(@RequestParam(required = false) String key) throws LoginException {
+	public String logoutAdminHandler(@Valid @RequestParam(required = false) String key) throws LoginException {
 		return logS.logOut(key);
 		
 	}
@@ -68,7 +70,7 @@ public class AdminController {
 	
 	
 	@PostMapping("/registeradmin")
-	public ResponseEntity<Admin> createAdminHandler(@RequestBody Admin admin)	{
+	public ResponseEntity<Admin> createAdminHandler(@Valid @RequestBody Admin admin)	{
 		Admin a=adminS.createAdmin(admin);
 		
 		return new ResponseEntity<Admin>(a, HttpStatus.CREATED);
@@ -78,39 +80,39 @@ public class AdminController {
 	
 	
 	@PostMapping("/registerDriver")
-	public ResponseEntity<Driver> registerDriverHandler(@RequestBody Driver driver,@RequestParam String sessionid){
+	public ResponseEntity<Driver> registerDriverHandler(@Valid @RequestBody Driver driver,@RequestParam String sessionid){
 		Driver registeredDriver =adminS.addDriver(driver,sessionid);
 		return new ResponseEntity<Driver>(registeredDriver,HttpStatus.CREATED);
 	}
 	
 	
 	@DeleteMapping("/deleteDriver")
-	public ResponseEntity<Driver> deleteDriverHandler(@RequestParam Integer id){
+	public ResponseEntity<Driver> deleteDriverHandler(@Valid @RequestParam Integer id){
 		Driver driver=adminS.deleteDriver(id);
 		return new ResponseEntity<Driver>(driver,HttpStatus.ACCEPTED);
 	}
 	
 	
 	@DeleteMapping("/deleteAdmin")
-	public ResponseEntity<Admin> deleteAdminHandler(@RequestParam String id){
+	public ResponseEntity<Admin> deleteAdminHandler(@Valid @RequestParam String id){
 		Admin admin=adminS.deleteAdmin(id);
 		return new ResponseEntity<Admin>(admin,HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/updateAdmin")
-	public ResponseEntity<Admin> updateAdminHandler(@RequestBody Admin admin,@RequestParam String sessionid){
+	public ResponseEntity<Admin> updateAdminHandler(@Valid @RequestBody Admin admin,@RequestParam String sessionid){
 		Admin updatedadmin=adminS.updateAdmin(admin, sessionid);
 		return new ResponseEntity<Admin>(updatedadmin,HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/updatePassword")
-	public ResponseEntity<String> updatePasswordHandler(@RequestParam String email,@RequestParam String phone,@RequestParam String password){
+	public ResponseEntity<String> updatePasswordHandler(@Valid @RequestParam String email,@RequestParam String phone,@RequestParam String password){
 		String msg=adminS.updatePassword(email, phone, password);
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/admin")
-	public ResponseEntity<Admin> viewdDetailsHandler(@RequestParam String id){
+	public ResponseEntity<Admin> viewdDetailsHandler(@Valid @RequestParam String id){
 		Admin admin=adminS.viewAdminDetails(id);
 		return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 	}
@@ -122,21 +124,21 @@ public class AdminController {
 //	}
 	
 	@GetMapping("/driversbyadmin")
-	public ResponseEntity<List<Driver>> viewDriverListHandler(@RequestParam String sessionid){
+	public ResponseEntity<List<Driver>> viewDriverListHandler(@Valid @RequestParam String sessionid){
 
 		List<Driver> list=adminS.viewDrivers(sessionid);
 		return new ResponseEntity<List<Driver>>(list,HttpStatus.OK);
 	}
 	
 	@GetMapping("/admins")
-	public ResponseEntity<List<Admin>> viewAdminListHandler(@RequestParam String sessionid){
+	public ResponseEntity<List<Admin>> viewAdminListHandler(@Valid @RequestParam String sessionid){
 
 		List<Admin> list=adminS.viewAdmins(sessionid);
 		return new ResponseEntity<List<Admin>>(list,HttpStatus.OK);
 	}
 	
 	@GetMapping("/customers")
-	public ResponseEntity<List<Customer>> viewCustomerListHandler(@RequestParam String sessionid){
+	public ResponseEntity<List<Customer>> viewCustomerListHandler(@Valid @RequestParam String sessionid){
 
 		List<Customer> list=adminS.viewCustomers(sessionid);
 		return new ResponseEntity<List<Customer>>(list,HttpStatus.OK);

@@ -12,5 +12,4 @@ public class BookingDTO {
 	private String toDate;
 	private Double km;
 	
-	@query("select new BookingDTO(bookin) from Booking  b where id =?1")
 }

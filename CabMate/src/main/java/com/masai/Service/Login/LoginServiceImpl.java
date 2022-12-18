@@ -100,14 +100,14 @@ import net.bytebuddy.utility.RandomString;
 		 		if(customer == null) {
 		 			throw new LoginException("Please Enter a valid mobile number");
 		 		}
-		 		if(usersession.findById(customer.getUserID()).isPresent()) {
+		 		if(usersession.findById(customer.getCustomerID()).isPresent()) {
 		 			throw new LoginException("User already Logged In with this number");
 		 		}
 		 	    if(customer.getPassword().equals(dto.getPassword())) {
 					
 		 			String key = RandomString.make(6);
 					
-		 			 currentUserSession = new UserSession(customer.getUserID(), key, LocalDateTime.now(), customer.getRole());
+		 			 currentUserSession = new UserSession(customer.getCustomerID(), key, LocalDateTime.now(), customer.getRole());
 		 			 usersession.save(currentUserSession);	
 		 			 return currentUserSession.toString();
 					
