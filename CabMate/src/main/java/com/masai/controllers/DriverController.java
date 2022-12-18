@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,14 +38,14 @@ public class DriverController {
 	
 
 	@PostMapping("/driverlogin")
-	public ResponseEntity<String> logInAdminHandler(@Valid @RequestBody DriverDTO dto) throws LoginException {
+	public ResponseEntity<String> logInAdminHandler(@Valid @RequestBody DriverDTO dto) {
 		LoginDTO ldto = new LoginDTO(dto.getPhonenumber(), dto.getPassword(), dto.getRole());
 		String result = logS.login(ldto);
 		return new ResponseEntity<String>(result,HttpStatus.OK );
 	}
 	
-	@PostMapping("/driverlogout")
-	public String logoutAdminHandler(@Valid @RequestParam(required = false) String sessionid) throws LoginException {
+	@PostMapping("/driverlogout/{sessionid}")
+	public String logoutAdminHandler(@PathVariable("sessionid") String sessionid) {
 		return logS.logOut(sessionid);
 	}
 	
@@ -54,7 +55,7 @@ public class DriverController {
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 
-	@PostMapping("/drivers")
+	@PostMapping("/registerdriver")
 	public ResponseEntity<Driver> registerDriverHandler(@Valid @RequestBody Driver driver){
 		
 		Driver registeredDriver =driverService.registerDriver(driver);
@@ -62,29 +63,29 @@ public class DriverController {
 
 	}
 	
-	@PutMapping("/drivers")
-	public ResponseEntity<Driver> updateDriverHandler(@Valid @RequestBody Driver driver,@RequestParam String sessionid){
+	@PutMapping("/updatedriver/{sessionid}")
+	public ResponseEntity<Driver> updateDriverHandler(@Valid @RequestBody Driver driver,@PathVariable("sessionid") String sessionid){
 		
 		Driver registeredDriver =driverService.updateDriver(driver,sessionid);
 		return new ResponseEntity<Driver>(registeredDriver,HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/drivers")
-	public ResponseEntity<Driver> deleteDriverHandler(@Valid @RequestParam String sessionid){
+	@DeleteMapping("/deletedriver/{sessionid}")
+	public ResponseEntity<Driver> deleteDriverHandler(@PathVariable("sessionid") String sessionid){
 		
 		Driver registeredDriver =driverService.deleteDriver(sessionid);	
 		return new ResponseEntity<Driver>(registeredDriver,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/drivers")
-	public ResponseEntity<Driver> getDriverHandler(@Valid @RequestParam String sessionid){
+	@GetMapping("/driver/{sessionid}")
+	public ResponseEntity<Driver> getDriverHandler(@PathVariable("sessionid") String sessionid){
 		
 		Driver registeredDriver =driverService.viewDriver(sessionid);	
 		return new ResponseEntity<Driver>(registeredDriver,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/bookingList")
-	public ResponseEntity<List<Booking>> viewAllBookingDetailsHandler(@Valid @RequestParam String sessionid){
+	@GetMapping("/bookingList/{sessionid}")
+	public ResponseEntity<List<Booking>> viewAllBookingDetailsHandler(@PathVariable("sessionid") String sessionid){
 		
 		List<Booking> bookingList = driverService.viewAllBooking(sessionid);	
 		return new ResponseEntity<List<Booking>>(bookingList,HttpStatus.CREATED);
