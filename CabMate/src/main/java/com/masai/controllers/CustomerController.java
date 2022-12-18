@@ -51,8 +51,8 @@ public class CustomerController {
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/customer")
-	public ResponseEntity<Customer> getCustomerHandler(@Valid @RequestParam String sessionid){
+	@GetMapping("/customer/{sessionid}")
+	public ResponseEntity<Customer> getCustomerHandler(@Valid @PathVariable("sessionid") String sessionid){
 		
 		Customer customer = customerService.getCustomer(sessionid);
 		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
@@ -67,8 +67,8 @@ public class CustomerController {
 		
 	}
 	
-	@PutMapping("/customer")
-	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer customer,String sessionid){
+	@PutMapping("/customer/{sessionid}")
+	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer customer, @PathVariable("sessionid") String sessionid){
 		
 		Customer updatedCustomer = customerService.updateCustomer(customer,sessionid);
 		

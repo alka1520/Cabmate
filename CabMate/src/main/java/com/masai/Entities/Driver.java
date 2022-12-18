@@ -29,7 +29,7 @@ public class Driver extends User{
 	private Integer driverID;
 	
 	@NotNull
-	@Pattern(regexp = "[A-Z || a-z]{2}[0-9]{13}", message = "Enter valid License number")
+	@Pattern(regexp = "[A-Z]{2}[0-9]{13}", message = "Enter valid License number")
 	private String LicenseNo;
 	
 	@Max(value=5)
