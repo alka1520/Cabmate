@@ -1,7 +1,7 @@
 # CabMate (Online Cab Booking)
 # REST API for an Online Cab Booking Application
 
-* We have developed this REST API for an Online Cab Booking application. This API performs all the fundamental CRUD operations of any Online Cab Booking platform with user validation at every step.
+* We have developed this RESTful webservice for an Online Cab Booking application, performs all the fundamental CRUD operations of any Online Cab Booking platform with user validation at every step.
 * This project is developed by team of 4 Back-end Developers . 
 
 ## Tech Stack
